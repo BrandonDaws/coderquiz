@@ -1,10 +1,31 @@
 var quizHead = document.querySelector(".quizHeader");
-var time = document.querySelector(".timer");
+var timerEl = document.querySelector(".timer");
 var scores = document.querySelector(".highScore");
 var start = document.querySelector(".startQuiz");
-var seconds = 60;
-var timelapse = 0;
 
+let counter =60;
+
+
+const countdownTimer = function() {
+    
+    setInterval(function () {
+        counter--; // reduce counter by 1
+
+        if (counter >= 0) { // continue countdown if...
+         timerEl.textContent = "Time Remaining: " + counter;
+        }
+        
+        if (counter === 0) { // display
+            timerEl.textContent = "Times Up!";
+        }
+    }, 1000);
+};
+
+
+start.addEventListener("click", countdownTimer)
+
+
+/*
  const minutesTime = function(){
  var secondsLeft = seconds - timelapse;
  var minutesLeft = Math.floor(secondsLeft / 60)
@@ -23,7 +44,12 @@ var timelapse = 0;
      }
      return formatSeconds;
  };
+ function timer() {
+    time.textContent = "0" + minutesTime() + ":" + secondsTime();
+ }
 
 
+
+start.addEventListener("click", timer);
  //timer funct
- //
+*/
