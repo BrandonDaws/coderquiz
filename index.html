@@ -16,7 +16,8 @@
 <nav class="navbar navbar-dark mt-2 mx-2">
 <h1 class="col-4 quizHeader">Coder Quiz</h1>
 <h1 class="col-4 timer">1:00</h1>
-<h1 id="highScores" class="col-4 highScore"> View Scores</h1>
+
+
 </nav>
 <br>
 
@@ -25,7 +26,7 @@
     <div class="landingInfo" style="color: rgb(34, 177, 177) ;">
         <section class="startSection">
             <h2>Welcome to the Code Quiz! lets see what you got!</h2>
-            <h3>You have one minute to complete the quiz, Wrong answer DEDUCT 10 seconds, right answers get a light show!</h3>
+            <h3>You have one minute to complete the quiz, Wrong answer DEDUCT 10 seconds, Lets see what you can do!</h3>
     <button class="startQuiz" value="startButton">Press me if you dare!</button>
         </section>
     </div>
@@ -41,9 +42,8 @@
         <div class="response"></div>
      </div>
     </div>
-    <section style="display: none ;" id="input">
+    <section id="initialsEl">
         <div>
-            <h2>All done!</h2>
             <p> Your final score is: <span id="score">0</span></p>
             <p>Enter Initials: <span><input placeholder="initials" id="initials" /></span>
                 <button id="submit" class="btn">Submit</button>
@@ -51,10 +51,10 @@
         </div>
     </section>
     <!-- High Score Section -->
-    <section style="display: none;" id="highscores">
+    <section  id="highscores">
         <div>
             <h2>High Scores</h2>
-            <ol id="high-score-list">
+            <ol id="score-list">
             </ol>
             <button id="restart" class="btn">Restart Game</button>
             <button id="clearscores" class="btn">Clear High Scores</button>

@@ -18,6 +18,13 @@ var questEl = document.querySelector(".question");
  var questCont = document.querySelector(".questions");
  var ansRes = document.querySelector(".response");
  var ansButtons = document.querySelectorAll("#ansButton");
+ var submitBtn = document.querySelector("#submit");
+var restartBtn = document.querySelector("#restart");
+var clearScoreBtn = document.querySelector("#clearscores");
+var highScoreBtn = document.querySelector("highscore");
+var initialsEl = document.querySelector("#initialsEl");
+var initials = document.querySelector(".initials")
+var scores = document.getElementById("#score-list");
 
 var questions = [
     {
@@ -61,8 +68,11 @@ const countdownTimer = function() {
          timerEl.textContent = "Time Remaining: " + counter;
         }
         
-        if (counter === 0) { // display
+        if (counter === 0 || questionCount === questions.length) { // display
             timerEl.textContent = "Times Up!";
+            questCont.style.display = "none";
+            initialsEl.style.display = "block";
+            timerEl.textContent = counter
         }
     }, 1000);
 };
@@ -77,7 +87,7 @@ function askQuest(id) {
     }
 };
 
-//check answer and move to next question
+
 function checkAnswer(event) {
     event.preventDefault();
 
@@ -108,25 +118,25 @@ function checkAnswer(event) {
 function addScore(event) {
     event.preventDefault();
 
-    inputEl.style.display = "none";
-    highscoresEl.style.display = "block";
+    initialsEl.style.display = "none";
+    scores.style.display = "block";
 
-    var init = initialsInput.value.toUpperCase();
-    highScoreList.push({ initials: init, score: secondsLeft });
+    var init = initials.value.toUpperCase();
+    scores.push({ initials: init, score: counter });
 
-    highScoreList = highScoreList.sort((a,b) => {
-        if (a.score < b.score) {
+    scores = scores.sort((a,b) => {
+        if (a.scores < b.score) {
             return 1;
         } else {
             return -1;
         }
     });
 
-    highScoreListEl.innerHTML="";
-    for (var i = 0; i < highScoreList.length; i++) {
+    scores.innerHTML="";
+    for (var i = 0; i < scores.length; i++) {
         var li = document.createElement("li");
-        li.textContent = highScoreList[i].initials + " " + highScoreList[i].score;
-        highScoreListEl.append(li);
+        li.textContent = scores[i].initials + " " + scores[i].score;
+        scores.append(li);
     }
 
     storeScores();
@@ -134,11 +144,11 @@ function addScore(event) {
 };
 
 function storeScores() {
-    localStorage.setItem("ScoreList", JSON.stringify(highScoreList));
+    localStorage.setItem("Scores", JSON.stringify(highScoreList));
 }
 
 function displayScores() {
-    var storedScoreList = JSON.parse(localStorage.getItem("ScoreList")) || [];
+    var storedScoreList = JSON.parse(localStorage.getItem("Scores")) || [];
     if (storedScoreList !== null) {
         for( var i =storedScoreList.length-1;i>=0;i--){
         }
@@ -155,11 +165,40 @@ ansButtons.forEach(b => {
     b.addEventListener("click", checkAnswer);
 });
 
+submitBtn.addEventListener("click", addScore);
+
+function storeScores() {
+    localStorage.setItem("Scores", JSON.stringify(highScoreList));
+}
+
+function displayScores() {
+    var ScoreList = JSON.parse(localStorage.getItem("Scores")) || [];
+    if (ScoreList !== null) {
+        for( var i =ScoreList.length-1;i>=0;i--){
+        }
+    }
+};
+
+function clearScores() {
+    localStorage.clear();
+    highScoreListEl.innerHTML="";
+}
+
 
 
 
 start.addEventListener("click",startGame );
 
-start.addEventListener("click",countdownTimer )
+start.addEventListener("click",countdownTimer );
+
+restartBtn.addEventListener("click", function() {
+    questCont.style.display = "none";
+    landingPage.style.display = "block";
+     counter = 60;
+    timerEl.textContent = "Time:" + counter;
+    startGame();
+});
+
+
 
 
